@@ -1,1 +1,1 @@
-<p>Curso de Horoscopo, en proceso. </p>>
+<p>Curso de Horoscopo, en proceso. </p>
