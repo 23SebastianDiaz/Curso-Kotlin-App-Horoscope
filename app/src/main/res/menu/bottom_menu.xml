@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--Se crea el menu de navegacion-->
+
+    <item
+        android:id="@+id/horoscopeFragment"
+        android:title="@string/horoscope"
+        android:icon="@drawable/ic_horoscope"/>
+    <item
+        android:id="@+id/luckFragment"
+        android:title="@string/luck"
+        android:icon="@drawable/ic_luck"/>
+    <item
+        android:id="@+id/palmistryFragment"
+        android:title="@string/palmistry"
+        android:icon="@drawable/ic_palmistry"/>
+
+</menu>

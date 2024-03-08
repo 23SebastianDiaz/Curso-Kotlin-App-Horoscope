@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--Maneja los estado del color cuando este seleccionado-->
+
+    <item android:color="@color/secondary" android:state_checked="true"/>
+    <item android:color="@color/accent"/>
+
+</selector>
