@@ -1,6 +1,7 @@
 package com.example.horoscapp.ui.luck
 
 import android.animation.ObjectAnimator
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,8 +15,10 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.example.horoscapp.R
 import com.example.horoscapp.databinding.FragmentLuckBinding
+import com.example.horoscapp.ui.providers.RandomCardProvider
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Random
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class LuckFragment : Fragment() {
@@ -23,12 +26,44 @@ class LuckFragment : Fragment() {
     //Crear Binding
     private var _binding: FragmentLuckBinding? = null
     private val binding get() = _binding!! //Devuelve el _binding sin ser nulo
+
+    @Inject
+    lateinit var  randomCardProvider: RandomCardProvider //inyecta la clase de CardProvider
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         initUI()
     }
 
     private fun initUI() {
+        preparePrediction()
         initListeners()
+    }
+
+    //Funcion que prepara la predicion
+    private fun preparePrediction() {
+        val currentLuck = randomCardProvider.getLucky()
+        //Asegura que no es nulable
+        currentLuck?.let {luck ->
+            val currentPrediccion = getString(luck.text)
+            binding.tvLucky.text = currentPrediccion
+            binding.ivLuckyCard.setImageResource(luck.img)
+            binding.tvShare.setOnClickListener { shareResult(currentPrediccion) }
+        }
+    }
+
+    //Funcion para compartir
+    private fun shareResult(prediction:String) {
+
+        //Guarda el intent con el put extra de prediccion y tipo texto
+        val sendIntent:Intent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, prediction)
+            type = "text/plain"
+        }
+
+        //Comparte el intent segun a la app que se le click
+        val shareIntent = Intent.createChooser(sendIntent, null)
+        startActivity(shareIntent)
     }
 
     private fun initListeners() {
@@ -44,7 +79,7 @@ class LuckFragment : Fragment() {
         val animator = ObjectAnimator.ofFloat(binding.ivRoulette, View.ROTATION, 0f, degress.toFloat())
         animator.duration = 2000
         animator.interpolator = DecelerateInterpolator() //Disminuya la velocidad
-        animator.doOnEnd {  }
+        animator.doOnEnd { slideCard() }
         animator.start()
 
     }
@@ -102,7 +137,7 @@ class LuckFragment : Fragment() {
             override fun onAnimationRepeat(p0: Animation?) {}
         })
         binding.preview.startAnimation(dissapearAnimation) //se inician las animaciones
-        binding.prediction.startAnimation(appearAnimation) //se inician las animaciones
+        binding.prediction.startAnimation(appearAnimation) //se inician las abnimaciones
     }
 
     override fun onCreateView(
