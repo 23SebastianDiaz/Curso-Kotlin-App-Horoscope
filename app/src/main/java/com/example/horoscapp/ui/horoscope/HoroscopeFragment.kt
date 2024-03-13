@@ -62,12 +62,11 @@ class HoroscopeFragment : Fragment() {
                 Taurus -> HoroscopeModel.Taurus
                 Virgo -> HoroscopeModel.Virgo
             }
-
             //Controlador de navegacion a otra vista
             findNavController().navigate(
                 HoroscopeFragmentDirections.actionHoroscopeFragmentToHoroscopeDetailActivity(type)
             )
-        }) //pasa funcion la lambda
+        })
         binding.rvHoroscope.apply {
             layoutManager = GridLayoutManager(context, 2)
             adapter = horoscopeAdapter

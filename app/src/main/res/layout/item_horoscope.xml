@@ -18,9 +18,7 @@
         android:id="@+id/tvHoroscope"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/dancing"
-        android:textColor="@color/secondary"
-        android:textSize="28sp"
+        style="@style/Title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ivHoroscope" />
